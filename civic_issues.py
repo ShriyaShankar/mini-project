@@ -82,15 +82,18 @@ def predict_cat(X_train, X_test, y_train, y_test=None):
 
 # predict_cat()
 
-def logReg(train_tfidf, test_tfidf,y_train, y_test, _C=1.0):
-    classifier = LogisticRegression(C=_C)
+def logreg_fit(train_tfidf, y_train, _C=1.0):
+    classifier = LogisticRegression(C=_C, max_iter=10000)
     classifier.fit(train_tfidf,y_train)
-    score = classifier.score(test_tfidf,y_test)
-    predictions = classifier.predict(test_tfidf)
-    model_metrics(classifier,y_test,predictions,score)
+    filename = 'logRegclassifier.sav'
+    pickle.dump(classifier,open(filename,'wb'))
+    return classifier
+    # score = classifier.score(test_tfidf,y_test)
+    # predictions = classifier.predict(test_tfidf)
+    # model_metrics(classifier,y_test,predictions,score)
 
-def logreg_fit(train_tfidf,y_train):
-    param_grid_ = {'C': [1e-5, 1e-3, 1e-1, 1e0, 1e1, 1e2]}
+def logreg_tune(train_tfidf,y_train):
+    param_grid_ = {'C': [1e-5, 1e-3, 1e-1, 1e0, 1e1, 1e2], 'max_iter':[1000, 5000, 10000]}
     tfidf_search = GridSearchCV(LogisticRegression(), cv=5, param_grid=param_grid_)
     tfidf_search.fit(train_tfidf,y_train)
 

@@ -7,6 +7,8 @@ import metrics
 from sklearn.model_selection import train_test_split
 import pickle
 
+pd.options.mode.chained_assignment = None
+
 f = open("testdata.txt","r")
 text = [i.rstrip() for i in f.readlines()]
 
@@ -29,31 +31,30 @@ X_train, X_test, y_train, y_test = train_test_split(data['processedtext'],data['
 # print(list(X_train))
 train_tfidf, test_tfidf = ci.vectorize(0,list(X_train),text_data)
 
-logreg_model = ci.logreg_fit(train_tfidf, y_train)
+# logreg_model = ci.logreg_tune(train_tfidf, y_train)
 
 filename = 'logRegclassifier.sav'
-pickle.load(open(filename, 'rb'))
+logreg_model = pickle.load(open(filename, 'rb'))
 prediction = logreg_model.predict(test_tfidf)
 
-civic_issue_text = pd.DataFrame()
-civic_issue_text['processedtext'] = text_data
-civic_issue_text['prediction'] = prediction
+test_df['processedtext'] = text_data
+test_df['civic_issue'] = prediction
 
-civic_issue_text = civic_issue_text[civic_issue_text['prediction']==1]
+print(test_df[['description','civic_issue']])
 
-for i in range(len(test_df.description)):
-    print(f"Text: {test_df.description[i]}\tCivic Issue: {prediction[i]}")
+civic_issue_text = test_df[test_df['civic_issue']==1]
 
 print("\n\n\nMoving to Further Processing...\n\n\n")
 civic_data = dataset[dataset['civic_issue']==1][['processedtext', 'category']]
 
+X_train, X_test, y_train, y_test = train_test_split(civic_data['processedtext'],civic_data['category'], test_size=0.20, random_state=42)
 train_tfidf, test_tfidf = ci.vectorize(0, list(X_train), list(civic_issue_text.processedtext))
 
-svc_model = ci.train_SVC(train_tfidf, y_train)
+# svc_model = ci.train_SVC(train_tfidf, y_train)
 filename = 'linearkernelSVC.sav'
-pickle.load(open(filename, 'rb'))
+svc_model = pickle.load(open(filename, 'rb'))
 prediction = svc_model.predict(test_tfidf)
 
 civic_issue_text['category'] = prediction
 
-print(civic_issue_text.head(5))
+print(civic_issue_text[['description','category']])
