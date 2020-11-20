@@ -14,6 +14,11 @@ Hyperlocal tweets scraped using the Twitter Streaming API are preprocessed and p
 ### Required Libraries
 Run ```pip install -r requirements.txt```
 
+### Run 
+
+To test the framework on a text file of inputs, ```testdata.txt```, run ```python framework.py```
+To test it on real-time streaming tweets, run ```python streaming.py```
+
 Implemented using Python.
 
 ### Authors:

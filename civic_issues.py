@@ -105,8 +105,8 @@ def calculate_sentiment(text):
     sentimentAnalyser = SentimentIntensityAnalyzer()
     sentiment = sentimentAnalyser.polarity_scores(text)
     if sentiment['compound'] <= 0.05:
-        return ('Negative', 'Complaint')
+        return ('Negative - Complaint')
     elif sentiment['compound'] > 0.05 and sentiment['compound'] <= 0.25:
-        return ('Neutral', 'Feedback')
+        return ('Neutral - Feedback')
     else:
-        return ('Positive','Compliment')
+        return ('Positive - Compliment')
