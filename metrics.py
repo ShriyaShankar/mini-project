@@ -2,6 +2,8 @@ from sklearn.metrics import explained_variance_score
 from sklearn.metrics import precision_score, recall_score, f1_score, mean_squared_error
 from sklearn.metrics import roc_curve, roc_auc_score
 import matplotlib.pyplot as plt
+from sklearn.model_selection import KFold, cross_val_score
+import numpy as np
 
 # Function to print the Receiver Operating Characteristics curve, and calculate AuC
 def auc_roc(y_test, test, train, classifier):
@@ -42,3 +44,12 @@ def model_metrics(classifier,y_test,pred,score, only_acc=0):
         print("MSE:",mean_squared_error(y_test,pred)*100,"%")
         print("Explained Variance Regression Score:", explained_variance_score(y_test,pred))
     # auc_roc(y_test, classifier)
+
+def kfold_cross_validate(LR, Xtf):
+    kfold = KFold(n_splits=10,shuffle=True)
+    # LR = LogisticRegression()
+    scores = cross_val_score(LR,Xtf,y,cv=kfold, scoring='accuracy', n_jobs=-1)
+    mean_acc = np.mean(scores)*100
+    std_acc = np.std(scores)*100
+    print("Mean Accuracy: %0.2f"%mean_acc, "%")
+    print("Standard Deviation of Accuracy: %0.2f"%std_acc,"%")

@@ -6,6 +6,7 @@ import civic_issues as ci
 import metrics 
 from sklearn.model_selection import train_test_split
 import pickle
+import time
 
 pd.options.mode.chained_assignment = None
 
@@ -71,9 +72,15 @@ def civic_framework(test_df, tweet_or_text = 0):
     return True
 
 if __name__=="__main__":
+    start_time = time.time()
     f = open("testdata.txt","r")
     text = [i.rstrip() for i in f.readlines()]
 
     df_test = pd.DataFrame()
     df_test['description'] = text
     civic_framework(df_test,0)
+    end_time = time.time()
+
+    time_taken = end_time - start_time
+    print("\n\n---------------------------------------------------------------------")
+    print("Time Taken:", time_taken)
