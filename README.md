@@ -1,8 +1,8 @@
-# Civic Tweet Categorisation
+# Naagarik
 ### Analysing Civic Issue Complaints made by Citizens on Twitter
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-To analyse real-time data obtained from social media and classify them into civic issue categories, in order to understand citizen proactivity on social media platforms and help improve responsiveness of local government by making categorised data accessible.
+Naagarik is a machine learning framework, which analyses real-time data obtained from social media and classify them into civic issue categories, in order to understand citizen proactivity on social media platforms and help improve responsiveness of local government by making categorised data accessible.
 
 ### Dataset
 - Reap Benefit's Neighbourhood Dashboard data
