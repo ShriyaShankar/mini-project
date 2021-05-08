@@ -83,4 +83,4 @@ if __name__=="__main__":
 
     time_taken = end_time - start_time
     print("\n\n---------------------------------------------------------------------")
-    print("Time Taken:", time_taken)
+    print("Time Taken: {0:.2f} seconds".format(time_taken))
